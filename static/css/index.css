@@ -475,6 +475,16 @@ body {
   .carousel-counter {
     font-size: 0.85rem;
   }
+
+  /* Scale down display math formulas on mobile */
+  mjx-container[display="true"] {
+    font-size: 85% !important;
+  }
+
+  .is-family-monospace {
+    font-size: 0.85rem !important;
+    overflow-x: auto;
+  }
 }
 
 .results-carousel {
