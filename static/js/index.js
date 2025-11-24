@@ -119,24 +119,126 @@ function setupVideoCarouselAutoplay() {
     });
 }
 
-$(document).ready(function() {
-    // Check for click events on the navbar burger icon
+// Simplified Carousel Implementation for Feature Visualizations
+let carouselData = [];
+let currentCarouselIndex = 0;
 
-    var options = {
-		slidesToScroll: 1,
-		slidesToShow: 1,
-		loop: true,
-		infinite: true,
-		autoplay: true,
-		autoplaySpeed: 5000,
+function initSimpleCarousel() {
+    // Extract data from hidden carousel items
+    const items = document.querySelectorAll('#results-carousel .item');
+
+    items.forEach(item => {
+        const featureId = item.dataset.feature;
+        const title = item.querySelector('.feature-title')?.textContent || `Feature ${featureId}`;
+        const description = item.querySelector('.feature-description')?.textContent || '';
+        const caseStudyImg = item.querySelector('.case-study-img');
+        const prototypesImg = item.querySelector('.prototypes-img');
+
+        if (featureId && caseStudyImg && prototypesImg) {
+            carouselData.push({
+                featureId: featureId,
+                title: title,
+                description: description,
+                caseStudySrc: caseStudyImg.src,
+                prototypesSrc: prototypesImg.src
+            });
+        }
+    });
+
+    // Hide layer selector (not needed for feature-based carousel)
+    const layerSelector = document.querySelector('.carousel-header');
+    if (layerSelector) {
+        layerSelector.style.display = 'none';
     }
 
-	// Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
-	
+    // Preload all images to prevent layout shifts
+    preloadCarouselImages();
+
+    // Initialize carousel UI
+    if (carouselData.length > 0) {
+        updateCarouselDisplay();
+        attachCarouselEventListeners();
+
+        // Update total count
+        document.getElementById('carousel-total').textContent = carouselData.length;
+    }
+}
+
+function preloadCarouselImages() {
+    carouselData.forEach(item => {
+        // Preload case study image
+        const caseStudyImg = new Image();
+        caseStudyImg.src = item.caseStudySrc;
+
+        // Preload prototypes image
+        const prototypesImg = new Image();
+        prototypesImg.src = item.prototypesSrc;
+    });
+}
+
+function updateCarouselDisplay() {
+    if (carouselData.length === 0) return;
+
+    const item = carouselData[currentCarouselIndex];
+
+    // Update text
+    document.querySelector('.carousel-title').textContent = item.title;
+    document.querySelector('.carousel-description').textContent = item.description;
+
+    // Update image container to show both images
+    const imgContainer = document.querySelector('.carousel-image-container');
+    imgContainer.innerHTML = `
+        <div class="feature-images">
+            <div class="case-study-section">
+                <h4 class="image-section-title">Case Studies</h4>
+                <img src="${item.caseStudySrc}" alt="Case studies for ${item.title}"/>
+            </div>
+            <div class="prototypes-section">
+                <h4 class="image-section-title">Prototypes</h4>
+                <img src="${item.prototypesSrc}" alt="Prototypes for ${item.title}"/>
+            </div>
+        </div>
+    `;
+
+    // Update counter
+    document.getElementById('carousel-current').textContent = currentCarouselIndex + 1;
+}
+
+function attachCarouselEventListeners() {
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+
+    prevBtn.addEventListener('click', () => {
+        currentCarouselIndex = (currentCarouselIndex - 1 + carouselData.length) % carouselData.length;
+        updateCarouselDisplay();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentCarouselIndex = (currentCarouselIndex + 1) % carouselData.length;
+        updateCarouselDisplay();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (carouselData.length === 0) return;
+
+        if (e.key === 'ArrowLeft') {
+            currentCarouselIndex = (currentCarouselIndex - 1 + carouselData.length) % carouselData.length;
+            updateCarouselDisplay();
+        } else if (e.key === 'ArrowRight') {
+            currentCarouselIndex = (currentCarouselIndex + 1) % carouselData.length;
+            updateCarouselDisplay();
+        }
+    });
+}
+
+$(document).ready(function() {
+    // Initialize simplified carousel
+    initSimpleCarousel();
+
+    // Initialize Bulma slider for other carousels
     bulmaSlider.attach();
-    
+
     // Setup video autoplay for carousel
     setupVideoCarouselAutoplay();
-
 })

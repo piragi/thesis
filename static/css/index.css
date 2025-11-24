@@ -253,6 +253,230 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
+/* Carousel Header with Layer Selector */
+.carousel-header {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.layer-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.layer-selector-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.layer-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.layer-btn {
+  background: var(--background-accent);
+  color: var(--text-secondary);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+
+.layer-btn:hover {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  border-color: var(--primary-color);
+}
+
+.layer-btn.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
+}
+
+.layer-btn.active:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* Simplified Carousel Styles */
+.simple-carousel {
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.carousel-info {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.carousel-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.carousel-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-image-container {
+  background: var(--background-accent);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  flex: 1;
+  min-height: 900px;
+  display: flex;
+  align-items: center;
+}
+
+.feature-images {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.case-study-section,
+.prototypes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.image-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  text-align: center;
+}
+
+.carousel-image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+}
+
+.carousel-nav {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+}
+
+.carousel-nav:hover {
+  background: var(--primary-hover);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.carousel-nav:active {
+  transform: scale(1.05);
+}
+
+.carousel-counter-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.carousel-counter {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .simple-carousel {
+    padding: 1rem;
+  }
+
+  .carousel-info {
+    margin-bottom: 1rem;
+  }
+
+  .carousel-title {
+    font-size: 1.1rem;
+  }
+
+  .carousel-description {
+    font-size: 0.9rem;
+  }
+
+  .carousel-wrapper {
+    gap: 0.5rem;
+  }
+
+  .carousel-image-container {
+    padding: 0.75rem;
+    min-height: 600px;
+  }
+
+  .feature-images {
+    gap: 1.25rem;
+  }
+
+  .image-section-title {
+    font-size: 0.95rem;
+  }
+
+  .carousel-nav {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .carousel-counter {
+    font-size: 0.85rem;
+  }
+}
+
 .results-carousel {
   overflow: hidden;
   padding: 1rem 0;
@@ -316,6 +540,7 @@ body {
   margin-bottom: 2rem !important;
   position: relative;
   padding-bottom: 1rem;
+  text-align: center;
 }
 
 .title.is-3::after {
@@ -737,15 +962,105 @@ a:focus {
   .more-works-container {
     display: none;
   }
-  
+
   .hero, .section {
     animation: none;
   }
-  
+
   .button {
     background: transparent !important;
     color: var(--text-primary) !important;
     box-shadow: none !important;
+  }
+}
+
+/* Layer Selector Styles */
+.visualization-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.visualization-header > div:first-child {
+  flex: 1;
+  min-width: 300px;
+}
+
+.layer-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.layer-selector-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.layer-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--background-accent);
+  padding: 0.25rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.layer-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  border-radius: calc(var(--border-radius) - 2px);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+
+.layer-btn:hover {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+}
+
+.layer-btn.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.layer-btn.active:hover {
+  background: var(--primary-hover);
+}
+
+/* Mobile adjustments for layer selector */
+@media screen and (max-width: 768px) {
+  .visualization-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .layer-selector {
+    align-items: stretch;
+  }
+
+  .layer-buttons {
+    justify-content: space-between;
+  }
+
+  .layer-btn {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
